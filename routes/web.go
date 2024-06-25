@@ -1,8 +1,8 @@
 package routes_web
 
 import (
-	new_employee "go-app-crud/controllers"
-	// new_hello "go-app-crud/controllers/hello-world"
+	new_employee "github.com/dwialim/employee/controllers"
+	// new_hello "github.com/dwialim/employee/controllers/hello-world"
 	"net/http"
 )
 

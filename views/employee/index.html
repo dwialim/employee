@@ -37,7 +37,10 @@
 					<td>{{$employee.Name}}</td>
 					<td>{{$employee.NPWP}}</td>
 					<td>{{$employee.Address}}</td>
-					<td><a href="/employee/form?id={{$employee.Id}}" class="btn btn-warning btn-sm">Edit</a></td>
+					<td>
+						<a href="/employee/form?id={{$employee.Id}}" class="btn btn-warning btn-sm">Edit</a>
+						<a href="/employee/delete?id={{$employee.Id}}" class="btn btn-danger btn-sm">Hapus</a>
+					</td>
 				</tr>
 				{{end}}
 			</tbody>

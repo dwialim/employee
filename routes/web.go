@@ -63,7 +63,9 @@ func MapRoutes(server *http.ServeMux, db *sql.DB) {
 func EmployeeMux(db *sql.DB) http.Handler {
 	EmployeeMux := http.NewServeMux()
 	EmployeeMux.HandleFunc("/", c_employee.NewIndexEmployee(db))
-	EmployeeMux.HandleFunc("/form", c_employee.NewCreateEmployee(db))
+	EmployeeMux.HandleFunc("/form", c_employee.NewFormEmployee(db))
+	EmployeeMux.Handle("/delete", Get(http.HandlerFunc(c_employee.NewDeleteEmployee(db))))
+	// c_employee.NewCreateEmployee(db)
 
 	EmployeeMux.Handle("/dashboard", Get(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 		res.Write([]byte("Dashboard v2"))

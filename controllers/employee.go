@@ -66,7 +66,7 @@ func NewIndexEmployee(db *sql.DB) func(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func NewCreateEmployee(db *sql.DB) func(w http.ResponseWriter, r *http.Request) {
+func NewFormEmployee(db *sql.DB) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "POST" {
 			id := r.URL.Query().Get("id")
@@ -114,7 +114,7 @@ func NewCreateEmployee(db *sql.DB) func(w http.ResponseWriter, r *http.Request) 
 					w.WriteHeader(http.StatusInternalServerError)
 					return
 				}
-	
+
 				data["employee"] = employee
 			}
 
@@ -132,5 +132,23 @@ func NewCreateEmployee(db *sql.DB) func(w http.ResponseWriter, r *http.Request) 
 				return
 			}
 		}
+	}
+}
+
+func NewDeleteEmployee(db *sql.DB) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		id := r.URL.Query().Get("id")
+		if id == "" {
+			w.Write([]byte("Data tidak ditemukan"))
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		_, err := db.Exec("DELETE FROM employee WHERE id=?", id)
+		if err != nil {
+			w.Write([]byte(err.Error()))
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		http.Redirect(w, r, "/employee/", http.StatusMovedPermanently)
 	}
 }

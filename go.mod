@@ -1,5 +1,5 @@
 // module go-app-crud
-module github.com/dwialim/employee
+module github.com/dwialim/employee-management
 
 go 1.22.4
 

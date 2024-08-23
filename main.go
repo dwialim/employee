@@ -5,19 +5,23 @@ import (
 	"log"
 	"os"
 
-	"github.com/dwialim/employee/database"
+	"github.com/dwialim/employee-management/database"
+	routes_web "github.com/dwialim/employee-management/routes"
 	"github.com/joho/godotenv"
 
-	routes_web "github.com/dwialim/employee/routes"
 	"net/http"
 )
 
 func main() {
-	database.InitDatabase()
+	db := database.InitDatabase()
 	// fmt.Println("Hello World")
 	server := http.NewServeMux()
 
-	routes_web.MapRoutes(server)
+	// server.Handle("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	// 	w.Write([]byte("Welcome to dashboard"))
+	// }))
+
+	routes_web.MapRoutes(server, db)
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
